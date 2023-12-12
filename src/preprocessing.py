@@ -27,6 +27,28 @@ def blkrck_to_numpy(filepath):
     else:
         return None
 
-# Example usage
+# Example usage 'data' saved as NumPy array:
+"""
 data = blkrck_to_numpy("data/raw/2023_11_20 RefScrewLocation1001.ns6")
-print(data)
+"""
+
+
+def butter_bandpass_filter(signal_data, fs=10000):
+    # Define the frequency band
+    low = 4  # Hz
+    high = 45  # Hz
+    # Design the bandpass filter using butterworth filter
+    nyq = 0.5 * fs  # Nyquist frequency, which is half of fs
+    low = low / nyq
+    high = high / nyq
+    b, a = butter(1, [low, high], btype='band')
+
+    # Apply the filter to the signal
+    filtered_data = filtfilt(b, a, signal_data)
+    
+    return filtered_data
+
+# Example usage
+"""
+fitered_data = butter_bandpass_filter(data)
+"""
