@@ -1,0 +1,5 @@
+neo
+pandas
+numpy
+matplotlib
+scipy
