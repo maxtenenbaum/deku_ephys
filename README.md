@@ -29,11 +29,11 @@ If you prefer to use pip, follow these steps after cloning the repository:
 1. Ensure that you have Python installed
 
 2. Create and activate a virtual environment (optional but recommended):
-'''bash
+```bash
 python -m venv venv
 source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-'''
+```
 3. Install the required packages
-'''bash
+```bash
 pip install -r requirements.txt
-'''
+```
