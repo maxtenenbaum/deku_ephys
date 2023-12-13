@@ -3,7 +3,7 @@
 ## Description
 We are working to design a program to process and analyze the electrophysiological signals being recorded in the Deku Lab at the University of Oregon. Given the use of experimental thin-film devices, having code that can be modified to understand better the data being recorded is of utmost importance.
 ## Getting Started
-We are using Conda for package and environment management
+We are using Conda for package and environment management but you can also use pip if preferred.
 ### Setting Up the Conda Environment
 To set up the project environment using Conda:
 
