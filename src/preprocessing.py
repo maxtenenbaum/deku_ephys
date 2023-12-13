@@ -52,3 +52,23 @@ def butter_bandpass_filter(signal_data, fs=10000):
 """
 fitered_data = butter_bandpass_filter(data)
 """
+
+def filter_outliers(data, num_std_dev=3):
+    """
+    Filters out data points that are more than num_std_dev standard deviations from the mean.
+    
+    :param data: NumPy array of data points
+    :param num_std_dev: Number of standard deviations for the cutoff
+    :return: Filtered NumPy array
+    """
+    mean = np.mean(data)
+    std_dev = np.std(data)
+    lower_bound = mean - num_std_dev * std_dev
+    upper_bound = mean + num_std_dev * std_dev
+    return data[(data >= lower_bound) & (data <= upper_bound)]
+
+# Example usage
+"""
+filtered_data = filter_outliers(data)
+"""
+
