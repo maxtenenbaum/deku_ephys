@@ -23,3 +23,15 @@ conda env create -f environment.yml
 ```bash
 conda activate deku_ephys_env
 ```
+### Setting Up the Environment Using Pip
+If you prefer to use pip, follow these steps after cloning the repository:
+
+1. Ensure that you have Python installed
+
+2. Create and activate a virtual environment (optional but recommended):
+'''
+python -m venv venv
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+'''
+3. Install the required packages
+''' pip install -r requirements.txt'''
