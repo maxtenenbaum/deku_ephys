@@ -1,8 +1,7 @@
 import neo
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy import signal
-
+from scipy.signal import butter, filtfilt
 def blkrck_to_numpy(filepath):
     reader = neo.io.BlackrockIO(filename=f'{filepath}')
     blk = reader.read_block()
@@ -33,10 +32,7 @@ data = blkrck_to_numpy("data/raw/2023_11_20 RefScrewLocation1001.ns6")
 """
 
 
-def butter_bandpass_filter(signal_data, fs=10000):
-    # Define the frequency band
-    low = 4  # Hz
-    high = 45  # Hz
+def butter_bandpass_filter(signal_data, low, high, fs=10000):
     # Design the bandpass filter using butterworth filter
     nyq = 0.5 * fs  # Nyquist frequency, which is half of fs
     low = low / nyq
