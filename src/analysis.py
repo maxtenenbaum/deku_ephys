@@ -47,3 +47,48 @@ def psd_all(data, fs=10000, title='Data PSD', action='save'):
     else:
         plt.savefig(os.path.join(output_dir, f"{title}.png"))  # Ensure the filename is valid
         plt.close()
+
+
+
+def plot_spectrogram_segments(data, fs, segment_length, nperseg, noverlap, action='save'):
+    num_channels = data.shape[1]
+    data_length = len(data)
+    
+    # Calculate the number of segments
+    num_segments = int(np.ceil(data_length / segment_length))
+
+    for chan_index in range(num_channels):
+        for i in range(num_segments):
+            start = i * segment_length
+            end = min(start + segment_length, data_length)
+            segment_data = data[start:end, chan_index]
+            time_vector = np.arange(start, end) / fs
+
+            fig, axs = plt.subplots(nrows=2, ncols=1, figsize=(24, 8), sharex=True)
+
+            # Raw Data Plot for the segment
+            axs[0].plot(time_vector, segment_data)
+            axs[0].set_title(f'Raw Data - Channel {chan_index+1} - Segment {i+1}')
+
+            # Spectrogram for the segment
+            f, t, Sxx = signal.spectrogram(segment_data, fs, nperseg=nperseg, noverlap=noverlap)
+            t = t + start / fs  # Adjust time vector for the segment
+
+            # Normalize the color range based on the data
+            vmax = np.max(10 * np.log10(Sxx))
+            vmin = vmax - 30
+            im = axs[1].pcolormesh(t, f, 10 * np.log10(Sxx), shading='gouraud', cmap='inferno', vmin=vmin, vmax=vmax)
+            axs[1].set_ylabel('Frequency [Hz]')
+            axs[1].set_xlabel('Time [sec]')
+            axs[1].set_ylim(0, 55)
+            axs[1].set_title(f'Spectrogram - Channel {chan_index+1} - Segment {i+1}')
+        if action == 'show':
+            plt.show()
+        else:
+            output_dir = os.path.join(os.path.dirname(__file__), '..', 'output', 'plots')
+            os.makedirs(output_dir, exist_ok=True)
+            plt.savefig(os.path.join(output_dir, f"Segment{i+1}.png"))  # Ensure the filename is valid
+            plt.close()
+
+# Example usage:
+# plot_segments(data, fs=10000, segment_length=1000, nperseg=256, noverlap=128)
