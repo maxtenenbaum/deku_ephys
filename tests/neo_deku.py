@@ -15,7 +15,7 @@ from scipy import signal
 
 # Step 1: Import the Blackrock file
 # Replace with the path to your Blackrock file
-reader = neo.io.BlackrockIO(filename='/Users/maxtenenbaum/Desktop/Deku Analysis/120D1saline2002.ns6')
+reader = neo.io.BlackrockIO(filename='data/raw/2023_10_26 NNX new settings at baseline001.ns5')
 blk = reader.read_block()
 
 
